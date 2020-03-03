@@ -1,16 +1,18 @@
 import kotlinx.coroutines.*
 
-val job = Job()
 val job1 = Job()
 
 fun main() =  runBlocking{
 
-    GlobalScope.launch {
+    val job = GlobalScope.launch {
         delay(2000)
         inject()
+        delay(2000)
     }
+
     inject2()
     delay(2000)
+    job.join()
 }
 
 private fun inject() {

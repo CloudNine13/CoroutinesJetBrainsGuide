@@ -3,29 +3,20 @@ import kotlinx.coroutines.*
 val job = Job()
 val job1 = Job()
 
-fun main() {
+fun main() =  runBlocking{
 
     GlobalScope.launch {
-        print("Hello")
-        delay(1000L)
-        injectFirst()
-        delay(1000L) //No bloquea el hilo sino suspende la actividad de la coroutina.
+        delay(2000)
+        inject()
     }
-
-    CoroutineScope(Dispatchers.IO + job1).launch {
-        delay(1020L)
-        injectSecond()
-    }
-
-    Thread.sleep(5000) //Bloquea el hilo
+    inject2()
+    delay(2000)
 }
 
-private suspend fun injectFirst() {
-    withContext(Dispatchers.IO + job) {
-        print(", ")
-    }
-}
-
-private fun injectSecond() {
+private fun inject() {
         println("World!")
+}
+
+private fun inject2(){
+    println("Hello,")
 }

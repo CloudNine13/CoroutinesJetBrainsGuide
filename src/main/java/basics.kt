@@ -4,15 +4,15 @@ val job1 = Job()
 
 fun main() =  runBlocking{
 
-    val job = GlobalScope.launch {
+    val job = GlobalScope.launch { // launch a new coroutine and keep a reference to its Job
         delay(2000)
         inject()
         delay(2000)
     }
 
     inject2()
-    delay(2000)
-    job.join()
+    job.join() // wait until previous (child) coroutine completes
+    inject3()
 }
 
 private fun inject() {
@@ -20,5 +20,9 @@ private fun inject() {
 }
 
 private fun inject2(){
-    println("Hello,")
+    print("Hello, ")
+}
+
+private fun inject3() {
+    println("I love Kotlin coroutines!")
 }

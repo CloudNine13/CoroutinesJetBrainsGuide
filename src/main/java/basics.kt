@@ -4,20 +4,28 @@ val job1 = Job()
 
 fun main() =  runBlocking{
 
-    val job = GlobalScope.launch { // launch a new coroutine and keep a reference to its Job
-        delay(2000)
-        inject()
-        delay(2000)
-    }
+
 
     inject2()
-    job.join() // wait until previous (child) coroutine completes
+    test()
+    job1.join() // wait until previous (child) coroutine completes
     inject3()
 }
 
 private fun inject() {
-        println("World!")
+    println("World!")
+
 }
+
+private suspend fun test() {
+    CoroutineScope(job1).launch {
+    }
+        // launch a new coroutine and keep a reference to its Job
+        delay(2000)
+        inject()
+        delay(20000)
+    }
+
 
 private fun inject2(){
     print("Hello, ")
